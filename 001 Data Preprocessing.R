@@ -1,6 +1,3 @@
-# DS4B 101-R: R FOR BUSINESS ANALYSIS ----
-# JUMPSTART: First Sales Analysis ----
-
 # 1.0 Load libraries ----
 
 # Work horse packages
@@ -15,8 +12,6 @@ library(readxl)
 library(writexl)
 
 
-
-
 # 2.0 Importing Files ----
 
 ?read_excel()
@@ -26,8 +21,6 @@ bikes_tbl <- read_excel(path = "00_data/bike_sales/data_raw/bikes.xlsx")
 bikeshops_tbl <- read_excel("00_data/bike_sales/data_raw/bikeshops.xlsx")
 
 orderlines_tbl <- read_excel("00_data/bike_sales/data_raw/orderlines.xlsx")
-
-
 
 # 3.0 Examining Data ----
 
@@ -77,7 +70,7 @@ bike_orderlines_wrangled_tbl <- bike_orderlines_joined_tbl %>%
     mutate(total.price = price * quantity) %>%
     
     # Reorganize
-    select(-X__1, -location) %>%
+    select(-...1, -location) %>% # remove unneccesary columns
     select(-ends_with(".id")) %>%
     
     bind_cols(bike_orderlines_joined_tbl %>% select(order.id)) %>%
@@ -92,8 +85,6 @@ bike_orderlines_wrangled_tbl <- bike_orderlines_joined_tbl %>%
     set_names(names(.) %>% str_replace_all("\\.", "_")) 
 
 bike_orderlines_wrangled_tbl %>% glimpse()
-
-
 
 # 6.0 Business Insights ----
 
@@ -210,5 +201,3 @@ bike_orderlines_wrangled_tbl %>%
 
 bike_orderlines_wrangled_tbl %>%
     write_rds("00_data/bike_sales/data_wrangled_student/bike_orderlines.rds")
-
-
